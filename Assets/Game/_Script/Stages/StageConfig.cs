@@ -9,5 +9,6 @@ namespace Game._Script.Stages
     {
         public List<GemStageConfig> gemConfig;
         public int pickaxe;
+        public int dynamite;
     }
 }
