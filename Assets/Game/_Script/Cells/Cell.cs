@@ -6,13 +6,8 @@ namespace Game._Script.Cells
     {
         public Vector2Int position;
         public bool isOccupied;
-        public bool isRevealed;
-
-        public void Reveal()
-        {
-            if(isRevealed) return;
-            isRevealed = true;
-        }
+        public bool isDig;
+        
 
         public void MarkOccupied()
         {

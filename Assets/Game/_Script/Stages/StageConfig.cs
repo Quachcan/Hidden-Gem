@@ -7,8 +7,11 @@ namespace Game._Script.Stages
     [CreateAssetMenu(fileName = "New Stage Config", menuName = "Hidden Gem/ Stage Config")]
     public class StageConfig : ScriptableObject
     {
+        public string stageName;   
         public List<GemStageConfig> gemConfig;
-        public int pickaxe;
+        public int rows;
+        public int columns;
+        public int pickaxeReward;
         public int dynamite;
     }
 }

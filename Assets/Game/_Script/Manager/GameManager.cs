@@ -1,5 +1,6 @@
 using System;
 using System.Security.Cryptography;
+using Game._Script.Stages;
 using UnityEngine;
 
 namespace Game._Script.Manager
@@ -10,6 +11,8 @@ namespace Game._Script.Manager
 
         public GridManager gridManager;
         public GemManager gemManager;
+        public RockLayerManager rockLayerManager;
+        public StageManager stageManager;
 
 
         private void Awake()
@@ -26,7 +29,9 @@ namespace Game._Script.Manager
 
         private void Start()
         {
+            stageManager = GetComponentInChildren<StageManager>();
             gridManager = GetComponentInChildren<GridManager>();
+            rockLayerManager = GetComponentInChildren<RockLayerManager>();
             gemManager = GetComponentInChildren<GemManager>();
             
             InitializeManagers();
@@ -34,8 +39,10 @@ namespace Game._Script.Manager
 
         private void InitializeManagers()
         {
-            gridManager.Initialize();
-            gemManager.Initialize();
+            stageManager.Initialize();
+            //gridManager.Initialize();
+            //rockLayerManager.BuildRockLayer();
+            //gemManager.Initialize();
         }
     }
 }
