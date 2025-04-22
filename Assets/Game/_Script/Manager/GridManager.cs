@@ -21,8 +21,18 @@ namespace Game._Script.Manager
 
         public void Initialize()
         {
+            ClearBoard();
+            
             _rows = stageConfig.rows;
             _columns = stageConfig.columns;
+
+            float topY = -0.5f;
+            // Đặt transform.position.y sao cho gridOrigin.y = topY
+            float halfHeight = (_rows - 1) * cellSize * 0.5f;
+            Vector3 p = transform.position;
+            p.y = topY + halfHeight;
+            transform.position = p;
+
             CreateBoardGrid();
         }
 
@@ -50,6 +60,16 @@ namespace Game._Script.Manager
                 }   
             }
         }
+        
+        private void ClearBoard()
+        {
+            for (int i = transform.childCount - 1; i >= 0; i--)
+            {
+                var child = transform.GetChild(i);
+                Destroy(child.gameObject);
+            }
+            _gridCells = null;
+        }
 
         public  List<Cell> GetAllCells()
         {
@@ -62,18 +82,6 @@ namespace Game._Script.Manager
             return list;
         }
         
-        public List<Cell> GetAvailableCells()
-        {
-            List<Cell> available = new List<Cell>();
-            foreach (var cell in _gridCells)
-            {
-                if (!cell.isOccupied)
-                {
-                    available.Add(cell);
-                }
-            }
-            return available;
-        }
 
         public Cell GetCellAt(Vector2Int pos)
         {
@@ -83,6 +91,17 @@ namespace Game._Script.Manager
             }
 
             return null;
+        }
+
+        public List<Cell> GetRevealedCells()
+        {
+            var revealed = new List<Cell>();
+            foreach (var cell in _gridCells)
+            {
+                if(cell.isRevealed)
+                    revealed.Add(cell);
+            }
+            return revealed;
         }
     }
 }

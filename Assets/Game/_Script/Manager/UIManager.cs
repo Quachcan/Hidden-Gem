@@ -1,18 +1,78 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class UIManager : MonoBehaviour
+namespace Game._Script.Manager
 {
-    // Start is called before the first frame update
-    void Start()
+    public class UIManager : MonoBehaviour
     {
+        [Header("Pickaxe UI")]
+        [SerializeField] private PickaxeManager  pickaxeManager;
+        [SerializeField] private TextMeshProUGUI pickaxeCountText;
+        [SerializeField] private GameObject      outOfPickaxePopup;
         
-    }
+        [Header("Panels")]
+        [SerializeField] private GameObject      pausePanel;
+        [SerializeField] private GameObject      menuPanel;
+        [SerializeField] private GameObject      endPanel;
+        [SerializeField] private GameObject      inGamePanel;
+        
+        
+        
 
-    // Update is called once per frame
-    void Update()
-    {
+        private void OnDisable()
+        {
+            if (pickaxeManager != null)
+                GameManager.instance.pickaxeManager.OnPickaxeCountChanged -= UpdatePickaxeUI;
+        }
+
+        public void Initialize()
+        {
+            if(pickaxeManager != null)
+                GameManager.instance.pickaxeManager.OnPickaxeCountChanged += UpdatePickaxeUI;
+            
+            inGamePanel.SetActive(false);
+            menuPanel.SetActive(true);
+        }
+
+        private void UpdatePickaxeUI(int count)
+        {
+            Debug.Log($"Event Fire");
+            if (pickaxeCountText != null)
+                pickaxeCountText.text = count.ToString();
+        }
+
+        public void HandleOutOfPickaxe()
+        {
+            if (outOfPickaxePopup != null) 
+                outOfPickaxePopup.SetActive(true);
+        }
+
+        public void HandlePausePanel()
+        {
+            pausePanel.SetActive(true);
+            GameManager.instance.PauseGame();
+        }
+
+        public void HandleEndPanel()
+        {
+            endPanel.SetActive(true);
+        }
+
+        public void HandleResumeButton()
+        {
+            pausePanel.SetActive(false);
+            GameManager.instance.ResumeGame();
+        }
+        
+        public void HandleStartButton()
+        {
+            menuPanel.SetActive(false);
+            inGamePanel.SetActive(true);
+            GameManager.instance.StartGame();
+        }
         
     }
+        
 }

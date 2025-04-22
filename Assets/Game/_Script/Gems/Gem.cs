@@ -1,3 +1,4 @@
+using System.Collections;
 using Game._Script.Manager;
 using UnityEngine;
 
@@ -21,7 +22,7 @@ namespace Game._Script.Gems
                 Debug.Log("GemConfig is not available");
             }
 
-            float cellSize = GameManager.Instance.gridManager.cellSize;
+            float cellSize = GameManager.instance.gridManager.cellSize;
 
             float desireWidth = config.width * cellSize;
             float desireHeight = config.height * cellSize;
@@ -52,6 +53,13 @@ namespace Game._Script.Gems
             if(isCollected) return;
             isCollected = true;
             Debug.Log("Collected");
+            StartCoroutine(DestroyAfterDelay());
+        }
+        
+        private IEnumerator DestroyAfterDelay()
+        {
+            yield return new WaitForSeconds(1f);
+            Destroy(gameObject);
         }
     }
 }

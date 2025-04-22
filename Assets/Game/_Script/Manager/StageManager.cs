@@ -13,15 +13,18 @@ namespace Game._Script.Manager
         private GridManager _gridManager;
         private RockLayerManager _rockLayerManager;
         private GemManager _gemManager;
+        private DynamiteManager _dynamiteManager;
 
-        public StageConfig CurrentStageConfig => configs[_currentStageIndex];
+        private StageConfig CurrentStageConfig => configs[_currentStageIndex];
 
         private int _currentStageIndex = 0;
         
         public void Initialize()
         {
-            _gridManager = GameManager.Instance.gridManager;
-            _rockLayerManager = GameManager.Instance.rockLayerManager;
+            _gridManager      = GameManager.instance.gridManager;
+            _rockLayerManager = GameManager.instance.rockLayerManager;
+            _gemManager       = GameManager.instance.gemManager;
+            _dynamiteManager  = GameManager.instance.dynamiteManager;
             LoadStage(_currentStageIndex);
         }
 
@@ -40,9 +43,12 @@ namespace Game._Script.Manager
             _gridManager.Initialize();
             
             _rockLayerManager.BuildRockLayer();
+            _gemManager.Initialize(config); 
+            _dynamiteManager.Initialize(config);
+            
         }
 
-        private void NextStage()
+        public void NextStage()
         {
             if (_currentStageIndex + 1 < configs.Count)
             {
@@ -50,6 +56,7 @@ namespace Game._Script.Manager
             }
             else
             {
+                GameManager.instance.EndGame();
                 Debug.Log("All stages complete");
             }
         }
