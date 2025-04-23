@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using Game._Script.Stages;
-using UnityEditor.SceneManagement;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Game._Script.Manager
 {

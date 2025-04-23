@@ -10,6 +10,9 @@ namespace Game._Script.Dynamite
 {
     public class Dynamite : MonoBehaviour
     {
+        [SerializeField] private AudioClip audioClip;
+        [SerializeField] private AudioSource _audioSource;
+        
         public Vector2Int gridPosition;
 
         [SerializeField] private LayerMask whatCanBeDestroy;
@@ -25,6 +28,7 @@ namespace Game._Script.Dynamite
         {
             _gridManager = GameManager.instance.gridManager;
             _cell = GetComponentInParent<Cell>();
+            _audioSource = GetComponent<AudioSource>();
         }
 
         private void OnEnable()
@@ -48,11 +52,13 @@ namespace Game._Script.Dynamite
             _hasExploded = true;
             _cell.MarkCellRevealed();
 
+            if (Camera.main != null) AudioSource.PlayClipAtPoint(audioClip, Camera.main.transform.position);
             StartCoroutine(ExplodeDelay());
         }
 
         private void Explode()
         {
+
             Vector3 center = _gridManager.GetCellAt(gridPosition).transform.position;
             float cellSize = _gridManager.cellSize;
             float radius = cellSize * ExplosionRadius + 0.01f;
@@ -68,13 +74,11 @@ namespace Game._Script.Dynamite
                     Destroy(gameObject);
                 }
             }
-            
-            //TODO: Add Sound Effect
         }
 
         private IEnumerator ExplodeDelay()
         {
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(4f);
             Explode();
         }
     }

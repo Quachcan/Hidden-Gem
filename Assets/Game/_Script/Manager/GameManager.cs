@@ -24,6 +24,7 @@ namespace Game._Script.Manager
         public GameState CurrentGameState => _currGameState;
         public bool IsPlaying => _currGameState == GameState.Playing;
         public bool IsPaused => _currGameState == GameState.Paused;
+        public bool IsEnd => _currGameState == GameState.Ended;
         private void Awake()
         {
             if (instance != null && instance != this)
