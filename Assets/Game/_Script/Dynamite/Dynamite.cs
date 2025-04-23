@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using Game._Script.Cells;
 using Game._Script.Manager;
 using Game._Script.Rock;
@@ -10,9 +12,12 @@ namespace Game._Script.Dynamite
     {
         public Vector2Int gridPosition;
 
+        [SerializeField] private LayerMask whatCanBeDestroy;
+        
         private GridManager _gridManager;
         private Cell _cell;
         private bool _isDug;
+        private bool _hasExploded;
 
         private const int ExplosionRadius = 1;
 
@@ -25,6 +30,7 @@ namespace Game._Script.Dynamite
         private void OnEnable()
         {
             RockTile.OnRockDug += HandleRockDug;
+            Debug.Log("Event Sign");
         }
 
         private void OnDisable()
@@ -34,28 +40,42 @@ namespace Game._Script.Dynamite
 
         private void HandleRockDug(Vector2Int pos)
         {
+            //Debug.Log(
+                //$"[DynamiteTile] HandleRockDug: received pos={pos}, my gridPosition={gridPosition}");
+            if(_hasExploded) return;
             if(pos != gridPosition) return;
-            
+
+            _hasExploded = true;
             _cell.MarkCellRevealed();
 
-            Explode();
+            StartCoroutine(ExplodeDelay());
         }
 
         private void Explode()
         {
-            for (int dy = -ExplosionRadius; dy <= ExplosionRadius; dy++)
-            {
-                for (int dx = -ExplosionRadius; dx <= ExplosionRadius; dx++)
-                {
-                    var p = new Vector2Int(gridPosition.x + dx, gridPosition.y + dy);
-                    var rock = _cell.GetComponentInChildren<RockTile>();
-                    if(rock != null)
-                        Destroy(rock.gameObject);
+            Vector3 center = _gridManager.GetCellAt(gridPosition).transform.position;
+            float cellSize = _gridManager.cellSize;
+            float radius = cellSize * ExplosionRadius + 0.01f;
 
+            Collider2D[] hits = Physics2D.OverlapCircleAll(center, radius, whatCanBeDestroy);
+            foreach (var hit in hits)
+            {
+                if (hit.TryGetComponent<RockTile>(out var rock))
+                {
+                    Vector2Int p = rock.gridPosition;
+                    Destroy(hit.gameObject);
                     RockTile.RaiseOnRockDug(p);
+                    Destroy(gameObject);
                 }
             }
-            Debug.Log("Explode");
+            
+            //TODO: Add Sound Effect
+        }
+
+        private IEnumerator ExplodeDelay()
+        {
+            yield return new WaitForSeconds(1.5f);
+            Explode();
         }
     }
 }

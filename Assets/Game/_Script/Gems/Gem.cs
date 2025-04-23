@@ -45,14 +45,12 @@ namespace Game._Script.Gems
         {
             if (isRevealed) return;
             isRevealed = true;
-            Debug.Log("Revealed!");
         }
 
         public void GemCollected()
         {
             if(isCollected) return;
             isCollected = true;
-            Debug.Log("Collected");
             StartCoroutine(DestroyAfterDelay());
         }
         

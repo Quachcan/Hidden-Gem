@@ -78,7 +78,7 @@ namespace Game._Script.Manager
         public void StartGame()
         {
             SetState(GameState.Playing);
-            Debug.Log("Playing");
+            Debug.Log("Playing State");
         }
 
         private void InitializeStages()
@@ -88,18 +88,24 @@ namespace Game._Script.Manager
             
         }
 
-        public void PauseGame()
+        public void GameMenu()
+        {
+            if(_currGameState != GameState.Playing) return;
+            SetState(GameState.Menu);
+            Debug.Log("Menu State");
+        }
+        public void GamePause()
         {
             if(_currGameState != GameState.Playing) return;
             SetState(GameState.Paused);
-            Debug.Log("Pause");
+            Debug.Log("Pause State");
         }
 
-        public void ResumeGame()
+        public void GameResume()
         {
             if(_currGameState != GameState.Paused) return;
             SetState(GameState.Playing);
-            Debug.Log("Resume game");
+            Debug.Log("Playing State");
         }
         
         private void OnAllStageGemsCollected()

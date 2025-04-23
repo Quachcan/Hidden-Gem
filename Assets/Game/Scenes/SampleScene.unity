@@ -1803,7 +1803,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae51fc9d8246b4c6d94aeced8e454a98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickaxeManager: {fileID: 0}
+  pickaxeManager: {fileID: 2007290025}
   pickaxeCountText: {fileID: 1990154990}
   outOfPickaxePopup: {fileID: 359690005}
   pausePanel: {fileID: 1227765029}
@@ -2228,6 +2228,7 @@ MonoBehaviour:
   stageManager: {fileID: 0}
   uiManager: {fileID: 0}
   pickaxeManager: {fileID: 0}
+  dynamiteManager: {fileID: 0}
 --- !u!4 &1274800166
 Transform:
   m_ObjectHideFlags: 0
@@ -2247,6 +2248,7 @@ Transform:
   - {fileID: 1054122340}
   - {fileID: 2007290024}
   - {fileID: 1118866084}
+  - {fileID: 1703967462}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1303112250
@@ -3120,6 +3122,51 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1703967461
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1703967462}
+  - component: {fileID: 1703967463}
+  m_Layer: 0
+  m_Name: DynamiteManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1703967462
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1703967461}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1274800166}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1703967463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1703967461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 376a3d530efa444aaa9018db6cd49573, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dynamitePrefab: {fileID: 2490891601218945161, guid: 58b5a39c73e534b0a9e10ebbb768f7ff, type: 3}
 --- !u!1 &1708687327
 GameObject:
   m_ObjectHideFlags: 0
@@ -3271,7 +3318,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1739208105
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3517,7 +3564,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1910489661}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1118866085}
+        m_TargetAssemblyTypeName: Game._Script.Manager.UIManager, Assembly-CSharp
+        m_MethodName: HandleMenuPanel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1910489661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3740,7 +3799,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -100, y: 0}
+  m_AnchoredPosition: {x: -124, y: 0}
   m_SizeDelta: {x: 200, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1990154990

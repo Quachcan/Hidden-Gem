@@ -25,8 +25,6 @@ namespace Game._Script.Manager
                 if (rockGo.TryGetComponent<SpriteRenderer>(out var sr))
                 {
                     Vector2 spriteSize = sr.sprite.bounds.size;
-                    // Account for parent (cell) scale: worldSize = localScale * spriteSize * parentScale
-                    // So localScale = cellSize / (spriteSize * parentScale)
                     Vector3 parentScale = cell.transform.lossyScale;
                     float localScaleX = cellSize / (spriteSize.x * parentScale.x);
                     float localScaleY = cellSize / (spriteSize.y * parentScale.y);

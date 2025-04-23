@@ -8,7 +8,7 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - RockTile
   - Water
   - UI
   - 
@@ -49,6 +49,9 @@ TagManager:
     locked: 0
   - name: GemFG
     uniqueID: 1347005789
+    locked: 0
+  - name: Dynamite
+    uniqueID: 3821442709
     locked: 0
   - name: Rock
     uniqueID: 1696331289

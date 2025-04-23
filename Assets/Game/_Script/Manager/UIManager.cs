@@ -38,7 +38,6 @@ namespace Game._Script.Manager
 
         private void UpdatePickaxeUI(int count)
         {
-            Debug.Log($"Event Fire");
             if (pickaxeCountText != null)
                 pickaxeCountText.text = count.ToString();
         }
@@ -49,10 +48,17 @@ namespace Game._Script.Manager
                 outOfPickaxePopup.SetActive(true);
         }
 
+        public void HandleMenuPanel()
+        {
+            menuPanel.SetActive(true);
+            inGamePanel.SetActive(false);
+            GameManager.instance.GameMenu();
+        }
+
         public void HandlePausePanel()
         {
             pausePanel.SetActive(true);
-            GameManager.instance.PauseGame();
+            GameManager.instance.GamePause();
         }
 
         public void HandleEndPanel()
@@ -63,7 +69,7 @@ namespace Game._Script.Manager
         public void HandleResumeButton()
         {
             pausePanel.SetActive(false);
-            GameManager.instance.ResumeGame();
+            GameManager.instance.GameResume();
         }
         
         public void HandleStartButton()
